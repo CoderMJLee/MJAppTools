@@ -8,12 +8,10 @@
 
 #import "MJAppTools.h"
 #import "MJMachO.h"
-#import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "LSApplicationWorkspace.h"
 #import "LSApplicationProxy.h"
 #import "FBApplicationInfo.h"
-#import <dlfcn.h>
 
 @implementation MJAppTools
 

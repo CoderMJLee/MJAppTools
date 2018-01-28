@@ -12,10 +12,10 @@
 #import "MJPrintTools.h"
 
 #define MJPrintNewLine printf("\n")
-
-void list_machO(MJMachO *machO);
-void list_apps(MJListAppsType type, NSString *regex);
-void init_colors(void);
+#define MJPrintDivider(n) \
+for (int i = 0; i<(n); i++) { \
+[MJPrintTools print:@"-"]; \
+}
 
 static NSString *MJPrintColorCount;
 static NSString *MJPrintColorNo;
@@ -26,13 +26,18 @@ static NSString *MJPrintColorId;
 static NSString *MJPrintColorArch;
 static NSString *MJPrintColorTip;
 
+void list_machO(MJMachO *machO);
+void list_app(MJApp *app, int index);
+void list_apps(MJListAppsType type, NSString *regex);
+void init_colors(void);
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         init_colors();
         
-        BOOL gt_ios8 = ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending);
+        BOOL gt_ios8 = ([[[UIDevice currentDevice] systemVersion] compare:@"8" options:NSNumericSearch] != NSOrderedAscending);
         if (!gt_ios8) {
-            [MJPrintTools printError:@"MJAppTools目前只支持iOS8以上系统（包括iOS8）\n"];
+            [MJPrintTools printError:@"MJAppTools目前不支持iOS8以下系统\n"];
             return 0;
         }
     
@@ -83,6 +88,37 @@ void init_colors()
     MJPrintColorTip = MJPrintColorCyan;
 }
 
+void list_app(MJApp *app, int index)
+{
+    [MJPrintTools print:@"# "];
+    [MJPrintTools printColor:MJPrintColorNo format:@"%02d ", index +1];
+    [MJPrintTools print:@"【"];
+    [MJPrintTools printColor:MJPrintColorName format:@"%@", app.displayName];
+    [MJPrintTools print:@"】 "];
+    [MJPrintTools print:@"<"];
+    [MJPrintTools printColor:MJPrintColorId format:@"%@", app.bundleIdentifier];
+    [MJPrintTools print:@">"];
+    
+    MJPrintNewLine;
+    [MJPrintTools print:@"  "];
+    [MJPrintTools printColor:MJPrintColorPath format:app.bundlePath];
+    
+    if (app.executable.isFat) {
+        MJPrintNewLine;
+        [MJPrintTools print:@"  "];
+        [MJPrintTools printColor:MJPrintColorArch format:@"Universal binary"];
+        for (MJMachO *machO in app.executable.machOs) {
+            MJPrintNewLine;
+            printf("      ");
+            list_machO(machO);
+        }
+    } else {
+        MJPrintNewLine;
+        [MJPrintTools print:@"  "];
+        list_machO(app.executable);
+    }
+}
+
 void list_apps(MJListAppsType type, NSString *regex)
 {
     [MJAppTools listUserAppsWithType:type regex:regex operation:^(NSArray *apps) {
@@ -95,41 +131,14 @@ void list_apps(MJListAppsType type, NSString *regex)
             [MJPrintTools printColor:MJPrintColorCrypt format:@"加密"];
         }
         [MJPrintTools print:@"应用"];
-        MJPrintNewLine;
         
         for (int i = 0; i < apps.count; i++) {
-            MJApp *app = apps[i];
             MJPrintNewLine;
-            [MJPrintTools print:@"# "];
-            [MJPrintTools printColor:MJPrintColorNo format:@"%02d ", i +1];
-            [MJPrintTools print:@"【"];
-            [MJPrintTools printColor:MJPrintColorName format:@"%@", app.displayName];
-            [MJPrintTools print:@"】 "];
-            [MJPrintTools print:@"<"];
-            [MJPrintTools printColor:MJPrintColorId format:@"%@", app.bundleIdentifier];
-            [MJPrintTools print:@">"];
-            
+            MJPrintDivider(5);
             MJPrintNewLine;
-            [MJPrintTools print:@"  "];
-            [MJPrintTools printColor:MJPrintColorPath format:app.bundlePath];
-            
-            if (app.executable.isFat) {
-                MJPrintNewLine;
-                [MJPrintTools print:@"  "];
-                [MJPrintTools printColor:MJPrintColorArch format:@"Universal binary"];
-                for (MJMachO *machO in app.executable.machOs) {
-                    MJPrintNewLine;
-                    printf("      ");
-                    list_machO(machO);
-                }
-            } else {
-                MJPrintNewLine;
-                [MJPrintTools print:@"  "];
-                list_machO(app.executable);
-            }
-            
-            MJPrintNewLine;
+            list_app(apps[i], i);
         }
+        MJPrintNewLine;
     }];
 }
 

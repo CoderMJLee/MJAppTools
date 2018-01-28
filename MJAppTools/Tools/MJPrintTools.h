@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *MJPrintColorDefault;
+
 extern NSString *MJPrintColorRed;
 extern NSString *MJPrintColorGreen;
 extern NSString *MJPrintColorBlue;
@@ -18,7 +19,7 @@ extern NSString *MJPrintColorYellow;
 extern NSString *MJPrintColorCyan;
 extern NSString *MJPrintColorMagenta;
 
-extern NSString *MJPrintColorWarning ;
+extern NSString *MJPrintColorWarning;
 extern NSString *MJPrintColorError;
 extern NSString *MJPrintColorStrong;
 

@@ -27,29 +27,21 @@ const NSString *MJPrintColorStrong = @"\033[1;32m";
 
 + (void)printError:(NSString *)format, ...
 {
-    if (!format) return;
-    
     [self printColor:(NSString *)MJPrintColorError format:format];
 }
 
 + (void)printWarning:(NSString *)format, ...
 {
-    if (!format) return;
-    
     [self printColor:(NSString *)MJPrintColorWarning format:format];
 }
 
 + (void)printStrong:(NSString *)format, ...
 {
-    if (!format) return;
-    
     [self printColor:(NSString *)MJPrintColorStrong format:format];
 }
 
 + (void)print:(NSString *)format, ...
 {
-    if (!format) return;
-    
     [self printColor:nil format:format];
 }
 
