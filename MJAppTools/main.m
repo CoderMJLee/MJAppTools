@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
         
         BOOL gt_ios8 = ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending);
         if (!gt_ios8) {
-            [MJPrintTools printError:@"MJAppTools只支持iOS8以上系统（包括iOS8）\n"];
+            [MJPrintTools printError:@"MJAppTools目前只支持iOS8以上系统（包括iOS8）\n"];
             return 0;
         }
     

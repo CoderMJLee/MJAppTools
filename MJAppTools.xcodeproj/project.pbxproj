@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D08A4EB201DE08D000C227D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08A4EA201DE08D000C227D /* Default-568h@2x.png */; };
 		2D373959201DA389006B6054 /* MJPrintTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D373958201DA389006B6054 /* MJPrintTools.m */; };
 		2DBBEB1D201C8C7000780B3C /* MJApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEAFB201C6F3800780B3C /* MJApp.m */; };
 		2DBBEB1E201C8C7000780B3C /* MJAppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEAFD201C6F3800780B3C /* MJAppTools.m */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D08A4EA201DE08D000C227D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2D373957201DA389006B6054 /* MJPrintTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJPrintTools.h; sourceTree = "<group>"; };
 		2D373958201DA389006B6054 /* MJPrintTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJPrintTools.m; sourceTree = "<group>"; };
 		2DBBEAE4201C6E9C00780B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D06C186201DF5CC00003BDD /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				2D373957201DA389006B6054 /* MJPrintTools.h */,
+				2D373958201DA389006B6054 /* MJPrintTools.m */,
+				2DBBEAF6201C6F3800780B3C /* MJAppTools.h */,
+				2DBBEAFD201C6F3800780B3C /* MJAppTools.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		2DBBEAAE201C6E7600780B3C = {
 			isa = PBXGroup;
 			children = (
@@ -74,15 +87,13 @@
 		2DBBEB07201C8BB900780B3C /* MJAppTools */ = {
 			isa = PBXGroup;
 			children = (
+				2D06C186201DF5CC00003BDD /* Tools */,
 				2DBBEB24201C8F5600780B3C /* Models */,
 				2DBBEB20201C8ECC00780B3C /* Extensions */,
 				2DBBEAF7201C6F3800780B3C /* SystemHeaders */,
-				2D373957201DA389006B6054 /* MJPrintTools.h */,
-				2D373958201DA389006B6054 /* MJPrintTools.m */,
-				2DBBEAF6201C6F3800780B3C /* MJAppTools.h */,
-				2DBBEAFD201C6F3800780B3C /* MJAppTools.m */,
 				2DBBEAE5201C6E9C00780B3C /* main.m */,
 				2DBBEAE4201C6E9C00780B3C /* Info.plist */,
+				2D08A4EA201DE08D000C227D /* Default-568h@2x.png */,
 			);
 			path = MJAppTools;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D08A4EB201DE08D000C227D /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
