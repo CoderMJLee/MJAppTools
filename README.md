@@ -76,4 +76,4 @@ chmod +x /usr/bin/MJAppTools
   ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128221635897-1734040701.png)
 
 - 搜索路径
-  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128221642944-1520477562.png)
+  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129014550003-918385208.png)
