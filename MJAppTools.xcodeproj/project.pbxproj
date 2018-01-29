@@ -34,6 +34,7 @@
 		2DBBEB22201C8EDD00780B3C /* NSFileHandle+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+Extension.h"; sourceTree = "<group>"; };
 		2DBBEB25201C8FA200780B3C /* MJMachO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJMachO.h; sourceTree = "<group>"; };
 		2DBBEB26201C8FA200780B3C /* MJMachO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJMachO.m; sourceTree = "<group>"; };
+		2DFA8508201ECF5700F3F555 /* FBBundleInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBBundleInfo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 				2DBBEAF8201C6F3800780B3C /* LSApplicationProxy.h */,
 				2DBBEAF9201C6F3800780B3C /* LSApplicationWorkspace.h */,
 				2DBBEAFA201C6F3800780B3C /* FBApplicationInfo.h */,
+				2DFA8508201ECF5700F3F555 /* FBBundleInfo.h */,
 			);
 			path = SystemHeaders;
 			sourceTree = "<group>";
