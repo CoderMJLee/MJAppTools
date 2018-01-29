@@ -11,6 +11,9 @@
 #import <UIKit/UIKit.h>
 #import "MJPrintTools.h"
 
+#define MJEncryptedString @"加壳"
+#define MJDecryptedString @"未加壳"
+
 #define MJPrintNewLine printf("\n")
 #define MJPrintDivider(n) \
 for (int i = 0; i<(n); i++) { \
@@ -47,12 +50,12 @@ int main(int argc, const char * argv[]) {
             
             [MJPrintTools printColor:MJPrintColorTip format:@"  -le <regex>"];
             [MJPrintTools print:@"\t列出用户安装的"];
-            [MJPrintTools printColor:MJPrintColorCrypt format:@"加密"];
+            [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
             [MJPrintTools print:@"应用\n"];
             
             [MJPrintTools printColor:MJPrintColorTip format:@"  -ld <regex>"];
             [MJPrintTools print:@"\t列出用户安装的"];
-            [MJPrintTools printColor:MJPrintColorCrypt format:@"未加密"];
+            [MJPrintTools printColor:MJPrintColorCrypt format:MJDecryptedString];
             [MJPrintTools print:@"应用\n"];
             return 0;
         }
@@ -103,6 +106,10 @@ void list_app(MJApp *app, int index)
     [MJPrintTools print:@"  "];
     [MJPrintTools printColor:MJPrintColorPath format:app.bundlePath];
     
+    MJPrintNewLine;
+    [MJPrintTools print:@"  "];
+    [MJPrintTools printColor:MJPrintColorPath format:app.dataPath];
+    
     if (app.executable.isFat) {
         MJPrintNewLine;
         [MJPrintTools print:@"  "];
@@ -126,9 +133,9 @@ void list_apps(MJListAppsType type, NSString *regex)
         [MJPrintTools printColor:MJPrintColorCount format:@"%zd", apps.count];
         [MJPrintTools print:@"个"];
         if (type == MJListAppsTypeUserDecrypted) {
-            [MJPrintTools printColor:MJPrintColorCrypt format:@"未加密"];
+            [MJPrintTools printColor:MJPrintColorCrypt format:MJDecryptedString];
         } else if (type == MJListAppsTypeUserEncrypted) {
-            [MJPrintTools printColor:MJPrintColorCrypt format:@"加密"];
+            [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
         }
         [MJPrintTools print:@"应用"];
         
@@ -147,6 +154,6 @@ void list_machO(MJMachO *machO)
     [MJPrintTools printColor:MJPrintColorArch format:machO.architecture];
     if (machO.isEncrypted) {
         [MJPrintTools print:@" "];
-        [MJPrintTools printColor:MJPrintColorCrypt format:@"加密"];
+        [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
     }
 }

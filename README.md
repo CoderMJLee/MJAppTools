@@ -5,14 +5,15 @@
 
 ## 目前已有的功能
 
-- 彩色打印 + 正则搜索
+- 正则搜索
   - 列出用户安装的所有应用
   - 列出用户安装的所有加壳应用
-  - 列出用户安装的所有脱壳应用
+  - 列出用户安装的所有未加壳应用
 - 应用信息
   - 应用名称
   - Bundle Identifier
-  - Bundle URL
+  - Bundle URL（Main Bundle）
+  - Data URL（Sandbox）
   - 架构信息（Architecture）
     - 架构名称（Architecture Name）
     - 加壳信息（Cryptid）
@@ -58,22 +59,21 @@ chmod +x /usr/bin/MJAppTools
 
 ### 5、开始使用MJAppTools
 
-![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128160520912-1432195115.png)
+![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129122122859-304167009.png)
 
 
 
 ## 用法
 
 ### 搜索用户安装的所有应用
-
-![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128221025584-441116962.png)
+![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129122149625-343565107.png)
 
 ### 支持正则搜索
 - 搜索名称
-  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128221554725-1505248222.png)
+  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129122156265-61789802.png)
 
 - 搜索ID
-  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180128221635897-1734040701.png)
+  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129122206250-1877490399.png)
 
 - 搜索路径
-  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129014550003-918385208.png)
+  ![](https://images2017.cnblogs.com/blog/497279/201801/497279-20180129122212906-911472208.png)

@@ -119,8 +119,6 @@
 @property (nonatomic, readonly) NSString *watchKitVersion;
 @property (getter=isWhitelisted, nonatomic, readonly) BOOL whitelisted;
 
-// Image: /System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
-
 + (id)applicationProxyForBundleURL:(id)arg1;
 + (id)applicationProxyForCompanionIdentifier:(id)arg1;
 + (id)applicationProxyForIdentifier:(id)arg1;

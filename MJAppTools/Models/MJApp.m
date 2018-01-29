@@ -14,6 +14,7 @@
 
 @interface MJApp()
 @property(copy, nonatomic) NSString *bundlePath;
+@property(copy, nonatomic) NSString *dataPath;
 @property(copy, nonatomic) NSString *bundleIdentifier;
 @property(copy, nonatomic) NSString *displayName;
 @property(copy, nonatomic) NSString *executableName;
@@ -37,6 +38,7 @@
         self.displayName = displayName;
         self.bundleIdentifier = info.bundleIdentifier;
         self.bundlePath = info.bundleURL.path;
+        self.dataPath = info.dataContainerURL.path;
     }
     return self;
 }

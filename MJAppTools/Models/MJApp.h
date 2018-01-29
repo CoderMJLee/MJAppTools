@@ -13,6 +13,7 @@
 @interface MJApp : NSObject
 
 @property(copy, nonatomic, readonly) NSString *bundlePath;
+@property(copy, nonatomic, readonly) NSString *dataPath;
 @property(copy, nonatomic, readonly) NSString *bundleIdentifier;
 @property(copy, nonatomic, readonly) NSString *displayName;
 @property(copy, nonatomic, readonly) NSString *executableName;
