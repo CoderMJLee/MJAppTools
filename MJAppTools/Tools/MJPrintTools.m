@@ -23,47 +23,58 @@ const NSString *MJPrintColorWarning = @"\033[1;33m";
 const NSString *MJPrintColorError = @"\033[1;31m";
 const NSString *MJPrintColorStrong = @"\033[1;32m";
 
+#define MJBeginFormat \
+if (!format) return; \
+va_list args; \
+va_start(args, format); \
+format = [[NSString alloc] initWithFormat:format arguments:args];
+
+#define MJEndFormat va_end(args);
+
 @implementation MJPrintTools
 
 + (void)printError:(NSString *)format, ...
 {
+    MJBeginFormat;
+    format = [@"Error: " stringByAppendingString:format];
     [self printColor:(NSString *)MJPrintColorError format:format];
 }
 
 + (void)printWarning:(NSString *)format, ...
 {
+    MJBeginFormat;
+    format = [@"Warning: " stringByAppendingString:format];
     [self printColor:(NSString *)MJPrintColorWarning format:format];
+    MJEndFormat;
 }
 
 + (void)printStrong:(NSString *)format, ...
 {
+    MJBeginFormat;
     [self printColor:(NSString *)MJPrintColorStrong format:format];
+    MJEndFormat;
 }
 
 + (void)print:(NSString *)format, ...
 {
+    MJBeginFormat;
     [self printColor:nil format:format];
+    MJEndFormat;
 }
 
 + (void)printColor:(NSString *)color format:(NSString *)format, ...
 {
-    if (!format) return;
+    MJBeginFormat;
     
-    va_list args;
-    va_start(args, format);
-    NSString *formatStr = [[NSString alloc] initWithFormat:format arguments:args];
     NSString *printStr = nil;
-    
-    if (color) {
-        printStr = [color stringByAppendingString:formatStr];
+    if (color && ![color isEqual:MJPrintColorDefault]) {
+        printStr = [color stringByAppendingFormat:@"%@%@", format, MJPrintColorDefault];
     } else {
-        printStr = [MJPrintColorDefault stringByAppendingString:formatStr];
+        printStr = [MJPrintColorDefault stringByAppendingString:format];
     }
-    
-    printStr = [printStr stringByAppendingString:(NSString *)MJPrintColorDefault];
-    
     printf("%s", printStr.UTF8String);
-    va_end(args);
+    
+    MJEndFormat;
 }
 
 @end

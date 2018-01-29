@@ -24,17 +24,9 @@
 - (instancetype)initWithFileHandle:(NSFileHandle *)handle
 {
     if (self = [super init]) {
-        // 开始的偏移
-        unsigned long long beginOffset = handle.offsetInFile;
-        
-        // magic
-        uint32_t magic = [handle mj_readUint32];
-        
-        // 恢复偏移
-        [handle seekToFileOffset:beginOffset];
-        
+        uint32_t magic = [handle mj_staticReadUint32];
         if (magic == FAT_CIGAM || magic == FAT_MAGIC) { // FAT
-            [self setupFat:handle bigEndian:magic == FAT_CIGAM];
+            [self setupFat:handle];
         } else {
             [self setupMachO:handle];
         }
@@ -102,13 +94,14 @@
     }
 }
 
-- (void)setupFat:(NSFileHandle *)handle bigEndian:(BOOL)bigEndian
+- (void)setupFat:(NSFileHandle *)handle
 {
     self.fat = YES;
     
     // fat头
     struct fat_header header;
     [handle mj_readData:&header length:sizeof(struct fat_header)];
+    BOOL bigEndian = (header.magic == FAT_CIGAM);
     
     // 架构数量
     uint32_t archCount = MJEndianConvert(bigEndian, header.nfat_arch);
@@ -123,7 +116,8 @@
         
         // 偏移到架构具体数据的开始
         [handle seekToFileOffset:MJEndianConvert(bigEndian, arch.offset)];
-        MJMachO *machO = [[self class] machOWithFileHandle:handle];
+        MJMachO *machO = [[[self class] alloc] init];
+        [machO setupMachO:handle];
         if (machO.isEncrypted) {
             self.encrypted = YES;
         }
