@@ -29,6 +29,7 @@ static NSString *MJPrintColorId;
 static NSString *MJPrintColorArch;
 static NSString *MJPrintColorTip;
 
+void print_usage(void);
 void list_machO(MJMachO *machO);
 void list_app(MJApp *app, int index);
 void list_apps(MJListAppsType type, NSString *regex);
@@ -45,18 +46,7 @@ int main(int argc, const char * argv[]) {
         }
     
         if (argc == 1) { // 参数不够
-            [MJPrintTools printColor:MJPrintColorTip format:@"  -l <regex>"];
-            [MJPrintTools print:@"\t列出用户安装的应用\n"];
-            
-            [MJPrintTools printColor:MJPrintColorTip format:@"  -le <regex>"];
-            [MJPrintTools print:@"\t列出用户安装的"];
-            [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
-            [MJPrintTools print:@"应用\n"];
-            
-            [MJPrintTools printColor:MJPrintColorTip format:@"  -ld <regex>"];
-            [MJPrintTools print:@"\t列出用户安装的"];
-            [MJPrintTools printColor:MJPrintColorCrypt format:MJDecryptedString];
-            [MJPrintTools print:@"应用\n"];
+            print_usage();
             return 0;
         }
         
@@ -71,9 +61,13 @@ int main(int argc, const char * argv[]) {
                 list_apps(MJListAppsTypeUserEncrypted, regex);
             } else if (strcmp(firstArg, "-ld") == 0) {
                 list_apps(MJListAppsTypeUserDecrypted, regex);
+            } else if (strcmp(firstArg, "-ls") == 0) {
+                list_apps(MJListAppsTypeSystem, regex);
             } else {
                 list_apps(MJListAppsTypeUser, regex);
             }
+        } else {
+            print_usage();
         }
     }
     return 0;
@@ -91,6 +85,27 @@ void init_colors()
     MJPrintColorTip = MJPrintColorCyan;
 }
 
+void print_usage()
+{
+    [MJPrintTools printColor:MJPrintColorTip format:@"  -l  <regex>"];
+    [MJPrintTools print:@"\t列出用户安装的应用\n"];
+    
+    [MJPrintTools printColor:MJPrintColorTip format:@"  -le <regex>"];
+    [MJPrintTools print:@"\t列出用户安装的"];
+    [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
+    [MJPrintTools print:@"应用\n"];
+    
+    [MJPrintTools printColor:MJPrintColorTip format:@"  -ld <regex>"];
+    [MJPrintTools print:@"\t列出用户安装的"];
+    [MJPrintTools printColor:MJPrintColorCrypt format:MJDecryptedString];
+    [MJPrintTools print:@"应用\n"];
+    
+    [MJPrintTools printColor:MJPrintColorTip format:@"  -ls <regex>"];
+    [MJPrintTools print:@"\t列出"];
+    [MJPrintTools printColor:MJPrintColorCrypt format:@"系统"];
+    [MJPrintTools print:@"的应用\n"];
+}
+
 void list_app(MJApp *app, int index)
 {
     [MJPrintTools print:@"# "];
@@ -106,9 +121,11 @@ void list_app(MJApp *app, int index)
     [MJPrintTools print:@"  "];
     [MJPrintTools printColor:MJPrintColorPath format:app.bundlePath];
     
-    MJPrintNewLine;
-    [MJPrintTools print:@"  "];
-    [MJPrintTools printColor:MJPrintColorPath format:app.dataPath];
+    if (app.dataPath.length) {
+        MJPrintNewLine;
+        [MJPrintTools print:@"  "];
+        [MJPrintTools printColor:MJPrintColorPath format:app.dataPath];
+    }
     
     if (app.executable.isFat) {
         MJPrintNewLine;
@@ -136,6 +153,8 @@ void list_apps(MJListAppsType type, NSString *regex)
             [MJPrintTools printColor:MJPrintColorCrypt format:MJDecryptedString];
         } else if (type == MJListAppsTypeUserEncrypted) {
             [MJPrintTools printColor:MJPrintColorCrypt format:MJEncryptedString];
+        } else if (type == MJListAppsTypeSystem) {
+            [MJPrintTools printColor:MJPrintColorCrypt format:@"系统"];
         }
         [MJPrintTools print:@"应用"];
         

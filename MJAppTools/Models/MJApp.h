@@ -17,6 +17,8 @@
 @property(copy, nonatomic, readonly) NSString *bundleIdentifier;
 @property(copy, nonatomic, readonly) NSString *displayName;
 @property(copy, nonatomic, readonly) NSString *executableName;
+@property(assign, nonatomic, readonly, getter=isSystemApp) BOOL systemApp;
+@property(assign, nonatomic, readonly, getter=isHidden) BOOL hidden;
 @property (strong, nonatomic, readonly) MJMachO *executable;
 
 - (instancetype)initWithInfo:(FBApplicationInfo *)info;

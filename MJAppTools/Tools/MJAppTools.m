@@ -39,14 +39,28 @@
     
     for (FBApplicationInfo *appInfo in appInfos) {
         if (!appInfo.bundleURL) continue;
-        if (![appInfo.applicationType isEqualToString:@"User"]) continue;
-        
         MJApp *app = [MJApp appWithInfo:appInfo];
+        // 类型
+        if (type != MJListAppsTypeSystem && app.isSystemApp) continue;
+        if (type == MJListAppsTypeSystem && !app.isSystemApp) continue;
+        
+        // 隐藏
+        if (app.isHidden) continue;
+        
+        // 过滤
+        if ([app.bundleIdentifier containsString:@"com.apple.webapp"]) continue;
+        
+        // 正则
         if (![self match:exp app:app]) continue;
         
+        // 可执行文件
         [app setupExecutable];
+        if (!app.executable) continue;
+        
+        // 加密
         if (type == MJListAppsTypeUserDecrypted && app.executable.isEncrypted) continue;
         if (type == MJListAppsTypeUserEncrypted && !app.executable.isEncrypted) continue;
+        
         [apps addObject:app];
     }
     

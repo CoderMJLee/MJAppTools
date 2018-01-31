@@ -12,7 +12,8 @@
 typedef enum {
     MJListAppsTypeUser,
     MJListAppsTypeUserEncrypted,
-    MJListAppsTypeUserDecrypted
+    MJListAppsTypeUserDecrypted,
+    MJListAppsTypeSystem
 } MJListAppsType;
 
 @interface MJAppTools : NSObject

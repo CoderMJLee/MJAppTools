@@ -27,8 +27,11 @@
         uint32_t magic = [handle mj_staticReadUint32];
         if (magic == FAT_CIGAM || magic == FAT_MAGIC) { // FAT
             [self setupFat:handle];
-        } else {
+        } else if (magic == MH_MAGIC || magic == MH_CIGAM
+                   || magic == MH_MAGIC_64 || magic == MH_CIGAM_64) {
             [self setupMachO:handle];
+        } else {
+            return nil;
         }
     }
     return self;
@@ -63,16 +66,16 @@
             self.architecture = @"x86";
         }
     } else if (cputype == CPU_TYPE_ARM64) {
-        self.architecture = @"arm64";
+        self.architecture = @"arm_64";
     } else if (cputype == CPU_TYPE_ARM) {
         if (cpusubtype == CPU_SUBTYPE_ARM_V6) {
-            self.architecture = @"armv6";
+            self.architecture = @"arm_v6";
         } else if (cpusubtype == CPU_SUBTYPE_ARM_V6) {
-            self.architecture = @"armv6";
+            self.architecture = @"arm_v6";
         } else if (cpusubtype == CPU_SUBTYPE_ARM_V7) {
-            self.architecture = @"armv7";
+            self.architecture = @"arm_v7";
         } else if (cpusubtype == CPU_SUBTYPE_ARM_V7S) {
-            self.architecture = @"armv7s";
+            self.architecture = @"arm_v7s";
         }
     }
     
