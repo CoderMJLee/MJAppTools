@@ -16,9 +16,11 @@
 
 #define MJPrintNewLine printf("\n")
 #define MJPrintDivider(n) \
+NSMutableString *dividerString = [NSMutableString string]; \
 for (int i = 0; i<(n); i++) { \
-[MJPrintTools print:@"-"]; \
-}
+[dividerString appendString:@"-"]; \
+} \
+[MJPrintTools print:dividerString];
 
 static NSString *MJPrintColorCount;
 static NSString *MJPrintColorNo;

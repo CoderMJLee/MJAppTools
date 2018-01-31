@@ -66,11 +66,14 @@ format = [[NSString alloc] initWithFormat:format arguments:args];
 {
     MJBeginFormat;
     
-    NSString *printStr = nil;
+    NSMutableString *printStr = [NSMutableString string];
     if (color && ![color isEqual:MJPrintColorDefault]) {
-        printStr = [color stringByAppendingFormat:@"%@%@", format, MJPrintColorDefault];
+        [printStr appendString:color];
+        [printStr appendString:format];
+        [printStr appendString:(NSString *)MJPrintColorDefault];
     } else {
-        printStr = [MJPrintColorDefault stringByAppendingString:format];
+        [printStr appendString:(NSString *)MJPrintColorDefault];
+        [printStr appendString:format];
     }
     printf("%s", printStr.UTF8String);
     
